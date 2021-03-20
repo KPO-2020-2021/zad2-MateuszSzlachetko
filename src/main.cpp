@@ -1,46 +1,38 @@
-#include <iostream>
-#include "BazaTestu.hh"
-
+﻿#include "complex.h"
 using namespace std;
 
-
-
-
-int main(int argc, char **argv)
+int main()
 {
-
-  if (argc < 2) {
-    cout << endl;
-    cout << " Brak opcji okreslajacej rodzaj testu." << endl;
-    cout << " Dopuszczalne nazwy to:  latwy, trudny." << endl;
-    cout << endl;
-    return 1;
-  }
-
-
-  BazaTestu   BazaT = { nullptr, 0, 0 };
-
-  if (InicjalizujTest(&BazaT,argv[1]) == false) {
-    cerr << " Inicjalizacja testu nie powiodla sie." << endl;
-    return 1;
-  }
-
-
-  
-  cout << endl;
-  cout << " Start testu arytmetyki zespolonej: " << argv[1] << endl;
-  cout << endl;
-
-  WyrazenieZesp   WyrZ_PytanieTestowe;
-  
-  while (PobierzNastpnePytanie(&BazaT,&WyrZ_PytanieTestowe)) {
-    cout << " Czesc rzeczywista pierwszego argumentu: ";
-    cout << WyrZ_PytanieTestowe.Arg1.re << endl;
-  }
-
-  
-  cout << endl;
-  cout << " Koniec testu" << endl;
-  cout << endl;
-
+    Complex z, z1, z2;
+    int i = 0, j = 0;
+    cout << "test" << endl;
+    float k = 0;
+    cin >> z1;
+    cin >> z2;
+    z = z1 / z2;
+    cout << z << endl;
+    // while (i < 5)
+    // {
+    //     //z = read_complex(z);
+    //     while (j != 3)
+    //     {
+    //         if (cin >> z)
+    //         {
+    //             //cout << z;
+    //             //cin.ignore(10000, '\n');
+    //             break;
+    //         }
+    //         if (!(cin >> z))
+    //         {
+    //             cout << "Please enter complex number only." << endl; // error message
+    //             cin.clear();                                         // reset the stream
+    //             cin.ignore(10000, '\n');
+    //             //clean_cin();
+    //         }
+    //         j++;
+    //     }
+    //     j = 0;
+    //     cout << z;
+    //     i++;
+    // }
 }
