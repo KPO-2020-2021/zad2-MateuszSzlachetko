@@ -154,7 +154,8 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		input >> a;
 		check_fail(input);
 		check_char(input, a, ')');
-		check_enter(input, 1); // if true-> extra characters after ending bracket
+		check_enter(input, 1);	   // if true-> extra characters after ending bracket
+		z = reset_value(input, z); // if failed reset value of "z"
 		return input;
 	}
 	else // if not (i) or (-i) case,put back readed chars
@@ -178,6 +179,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		check_fail(input);
 		check_char(input, a, ')');
 		check_enter(input, 1);
+		z = reset_value(input, z); // if failed reset value of "z"
 		return input;
 	}
 	else if (i == ')') // (25),(1,333) ... Im part = 0 cases
@@ -185,6 +187,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		check_enter(input, 1);
 		z.Re = number;
 		z.Im = 0;
+		z = reset_value(input, z); // if failed reset value of "z"
 		return input;
 	}
 	else if (i == '+' || i == '-') // (2+i) (25+1,555i) ... cases
@@ -203,6 +206,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 			check_fail(input);
 			check_char(input, a, ')');
 			check_enter(input, 1);
+			z = reset_value(input, z); // if failed reset value of "z"
 			return input;
 		}
 		else
@@ -215,6 +219,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		if (a != 'i')
 		{
 			input.setstate(ios::failbit);
+			z = reset_value(input, z); // if failed reset value of "z"
 			return input;
 		}
 		else
@@ -229,6 +234,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 			check_fail(input);
 			check_char(input, a, ')');
 			check_enter(input, 1);
+			z = reset_value(input, z); // if failed reset value of "z"
 			return input;
 		}
 	}
@@ -236,8 +242,19 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 	input >> a;
 	check_fail(input);
 	check_char(input, a, ')');
-	check_enter(input, 1); // przy >> wyrażenia zespolonego usunąć.
+	check_enter(input, 1);	   // przy >> wyrażenia zespolonego usunąć.
+	z = reset_value(input, z); // if failed reset value of "z"
 	return input;
+}
+
+Complex reset_value(istream &input, Complex &z)
+{
+	if (input.fail())
+	{
+		z.Re = 0;
+		z.Im = 0;
+	}
+	return z;
 }
 
 ostream &operator<<(ostream &os, const Complex &z)

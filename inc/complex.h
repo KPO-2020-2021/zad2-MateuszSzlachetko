@@ -31,6 +31,7 @@ istream &check_enter(istream &in, int mode); // 0 mode - "==" 1 mode - "!="
 istream &check_fail(istream &in);
 istream &check_char(istream &in, char readed, char wanted);
 
+Complex reset_value(istream &input, Complex &z);
 Complex complex_conjugate(Complex &z);
 float square_of_complex_abs(const Complex &z);
 
