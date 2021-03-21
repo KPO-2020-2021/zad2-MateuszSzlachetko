@@ -138,8 +138,6 @@ istream &operator>>(istream &input, Equation &eq)
     // input >> eq.first >> eq.op >> eq.second
     // ^ ale >> zespolona; jest zabezpieczone przed brakiem entera po wprowadzeniu ')'
     // więc używam funkcji która zawiera to samo co >> dla complex ale bez sprawdzania '\n'
-    // char a, i;
-    // Complex z, number, number2;
 
     Complex z1, z2;
     char a;

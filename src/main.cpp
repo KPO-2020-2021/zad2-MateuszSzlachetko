@@ -1,19 +1,23 @@
-﻿#include "complex_equation.h"
+﻿#include "exam.h"
+
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-    Complex z;
-    // cin >> z;
-    // cin.clear();
-    //cin.ignore(1000, '\n');
-    cout << z;
-    // // cin >> z;
-    // // cout << z;
-    Equation test;
 
-    cin >> test;
-    cout << test << endl;
-    z = solve_equation(test);
-    cout << z << endl;
+    Equation *testbase = NULL;
+    int lines = 0, errors = 0;
+    string filename;
+
+    filename = check_difficulty(argv, argc);
+
+    lines = check_lines(filename, errors);
+
+    testbase = get_equations(filename, testbase, lines, errors);
+
+    cout << endl;
+
+    make_exam(testbase, lines);
+
+    delete[] testbase;
 }

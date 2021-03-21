@@ -101,7 +101,7 @@ istream &check_enter(istream &in, int mode) // 0 mode - "==" 1 mode - "!="
 	}
 	else
 	{
-		cerr << "[ERROR]-badly used \"check_enter\" function" << endl;
+		cout << "[ERROR]-badly used \"check_enter\" function" << endl;
 	}
 
 	return in;
@@ -110,7 +110,9 @@ istream &check_enter(istream &in, int mode) // 0 mode - "==" 1 mode - "!="
 istream &check_fail(istream &in)
 {
 	if (in.fail())
+	{
 		return in;
+	}
 	return in;
 }
 
@@ -179,7 +181,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		check_fail(input);
 		check_char(input, a, ')');
 		check_enter(input, 1);
-		z = reset_value(input, z); // if failed reset value of "z"
+		z = reset_value(input, z);
 		return input;
 	}
 	else if (i == ')') // (25),(1,333) ... Im part = 0 cases
@@ -187,7 +189,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		check_enter(input, 1);
 		z.Re = number;
 		z.Im = 0;
-		z = reset_value(input, z); // if failed reset value of "z"
+		z = reset_value(input, z);
 		return input;
 	}
 	else if (i == '+' || i == '-') // (2+i) (25+1,555i) ... cases
@@ -206,7 +208,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 			check_fail(input);
 			check_char(input, a, ')');
 			check_enter(input, 1);
-			z = reset_value(input, z); // if failed reset value of "z"
+			z = reset_value(input, z);
 			return input;
 		}
 		else
@@ -219,7 +221,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		if (a != 'i')
 		{
 			input.setstate(ios::failbit);
-			z = reset_value(input, z); // if failed reset value of "z"
+			z = reset_value(input, z);
 			return input;
 		}
 		else
@@ -234,7 +236,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 			check_fail(input);
 			check_char(input, a, ')');
 			check_enter(input, 1);
-			z = reset_value(input, z); // if failed reset value of "z"
+			z = reset_value(input, z);
 			return input;
 		}
 	}
@@ -242,8 +244,8 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 	input >> a;
 	check_fail(input);
 	check_char(input, a, ')');
-	check_enter(input, 1);	   // przy >> wyrażenia zespolonego usunąć.
-	z = reset_value(input, z); // if failed reset value of "z"
+	check_enter(input, 1);
+	z = reset_value(input, z);
 	return input;
 }
 
@@ -262,38 +264,38 @@ ostream &operator<<(ostream &os, const Complex &z)
 	os << setprecision(3) << fixed; // decimal places 0.000
 	if (z.Re == 0 && z.Im == 0)
 	{
-		os << "(0)\n";
+		os << "(0)";
 		return os;
 	}
 	if (z.Re != 0 && z.Im == 0)
 	{
-		os << "(" << z.Re << ")\n";
+		os << "(" << z.Re << ")";
 		return os;
 	}
 	if (z.Re == 0 && z.Im != 0)
 	{
 		if (z.Im != 1 && z.Im != -1)
-			os << "(" << z.Im << "i)\n";
+			os << "(" << z.Im << "i)";
 		else if (z.Im == 1)
-			os << "(i)\n";
+			os << "(i)";
 		else
-			os << "(-i)\n";
+			os << "(-i)";
 		return os;
 	}
 	if (z.Re != 0 && z.Im > 0)
 	{
 		if (z.Im != 1)
-			os << "(" << z.Re << "+" << z.Im << "i)\n";
+			os << "(" << z.Re << "+" << z.Im << "i)";
 		else
-			os << "(" << z.Re << "+i)\n";
+			os << "(" << z.Re << "+i)";
 		return os;
 	}
 	if (z.Re != 0 && z.Im < 0)
 	{
 		if (z.Im != -1)
-			os << "(" << z.Re << z.Im << "i)\n";
+			os << "(" << z.Re << z.Im << "i)";
 		else
-			os << "(" << z.Re << "-i)\n";
+			os << "(" << z.Re << "-i)";
 		return os;
 	}
 	return os;
