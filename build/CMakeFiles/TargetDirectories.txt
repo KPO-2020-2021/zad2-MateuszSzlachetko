@@ -1,0 +1,3 @@
+/mnt/c/Users/Mateusz/Desktop/Studia/II sem/PO/zad2-MateuszSzlachetko/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/Mateusz/Desktop/Studia/II sem/PO/zad2-MateuszSzlachetko/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Mateusz/Desktop/Studia/II sem/PO/zad2-MateuszSzlachetko/build/CMakeFiles/complex.dir
