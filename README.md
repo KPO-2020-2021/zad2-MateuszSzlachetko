@@ -71,7 +71,7 @@ Założyłem dodatkowo,że warunkiem poprawnego wczytania liczby zespolonej jest
 
 &nbsp;&nbsp; [src](src/) - folder z plikami źródłowymi\
 &nbsp;&nbsp; ├── [main.cpp](src/main.cpp) - główny plik main programu\
-&nbsp;&nbsp; ├── [complex.cpp](src/complex.cpp) - plik źródłowy dla klasy reprezentującej liczbę zespoloną\
+&nbsp;&nbsp; ├── [complex.cpp](src/Complex.cpp) - plik źródłowy dla klasy reprezentującej liczbę zespoloną\
 &nbsp;&nbsp; ├── [complex_equation.cpp](src/complex_equation.cpp) - plik źródłowy dla klasy wyrażenia zespolonego\
 &nbsp;&nbsp; ├── [exam.cpp](src/exam.cpp) - plik źródłowy dla funkcji wczytujących bazę pytań i przeprowadzającej sprawdzian\
 &nbsp;&nbsp; └── [statistics.cpp](src/statistics.cpp) - plik źródłowy dla klasy statystki\
