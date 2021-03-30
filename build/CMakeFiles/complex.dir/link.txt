@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall -pedantic  -rdynamic CMakeFiles/complex.dir/src/Complex.cpp.o CMakeFiles/complex.dir/src/complex_equation.cpp.o CMakeFiles/complex.dir/src/exam.cpp.o CMakeFiles/complex.dir/src/main.cpp.o CMakeFiles/complex.dir/src/statistics.cpp.o  -o complex 
