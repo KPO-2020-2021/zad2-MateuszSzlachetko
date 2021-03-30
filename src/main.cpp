@@ -4,7 +4,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-
     Equation *testbase = NULL;
     int lines = 0, errors = 0;
     string filename;

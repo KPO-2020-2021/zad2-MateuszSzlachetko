@@ -1,5 +1,5 @@
-#include "Complex.h"
-#include <string>
+#include "complex.h"
+#include <cmath>
 #include <iomanip>
 
 Complex::Complex()
@@ -8,7 +8,7 @@ Complex::Complex()
 	Im = 0;
 }
 
-Complex::Complex(float a, float b)
+Complex::Complex(double a, double b)
 {
 	Re = a;
 	Im = b;
@@ -41,7 +41,7 @@ Complex Complex::operator*(const Complex &a)
 Complex Complex::operator/(const Complex &a)
 {
 	Complex result, z;
-	float k;
+	double k;
 	if (a.Re == 0 && a.Im == 0)
 	{
 		cerr << "Division by 0 exception" << endl;
@@ -49,14 +49,14 @@ Complex Complex::operator/(const Complex &a)
 	}
 	z.Im = a.Im; // 'a' is const need 'z' to perform a conjugate
 	z.Re = a.Re;
-	z = complex_conjugate(z);
+	z.complex_conjugate();
 	k = square_of_complex_abs(a);
 	result.Re = (Re * z.Re + Im * z.Im * (-1)) / k;
 	result.Im = (Re * z.Im + z.Re * Im) / k;
 	return result;
 }
 
-Complex Complex::operator/(float b)
+Complex Complex::operator/(double b)
 {
 	Complex result;
 	if (b == 0)
@@ -73,7 +73,12 @@ Complex Complex::operator/(float b)
 
 bool operator==(const Complex &a, const Complex &b)
 {
-	return (a.Re == b.Re && a.Im == b.Im);
+	if (abs(a.Re - b.Re) <= MIN_DIFF && abs(a.Im - b.Im) <= MIN_DIFF)
+	{
+		return true;
+	}
+	else
+		return false;
 }
 
 bool operator!=(const Complex &a, const Complex &b)
@@ -101,7 +106,7 @@ istream &check_enter(istream &in, int mode) // 0 mode - "==" 1 mode - "!="
 	}
 	else
 	{
-		cout << "[ERROR]-badly used \"check_enter\" function" << endl;
+		cerr << "[ERROR]-badly used \"check_enter\" function" << endl;
 	}
 
 	return in;
@@ -129,7 +134,7 @@ istream &check_char(istream &in, char readed, char wanted)
 istream &operator>>(istream &input, Complex &z) // extended notation
 {
 	char a, i;
-	float number, number2;
+	double number, number2;
 
 	input >> a; // read first bracket
 	check_fail(input);
@@ -156,8 +161,8 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		input >> a;
 		check_fail(input);
 		check_char(input, a, ')');
-		check_enter(input, 1);	   // if true-> extra characters after ending bracket
-		z = reset_value(input, z); // if failed reset value of "z"
+		check_enter(input, 1); // if true-> extra characters after ending bracket
+		z.reset_value(input);  // if failed reset value of "z"
 		return input;
 	}
 	else // if not (i) or (-i) case,put back readed chars
@@ -181,7 +186,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		check_fail(input);
 		check_char(input, a, ')');
 		check_enter(input, 1);
-		z = reset_value(input, z);
+		z.reset_value(input);
 		return input;
 	}
 	else if (i == ')') // (25),(1,333) ... Im part = 0 cases
@@ -189,7 +194,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		check_enter(input, 1);
 		z.Re = number;
 		z.Im = 0;
-		z = reset_value(input, z);
+		z.reset_value(input);
 		return input;
 	}
 	else if (i == '+' || i == '-') // (2+i) (25+1,555i) ... cases
@@ -208,11 +213,11 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 			check_fail(input);
 			check_char(input, a, ')');
 			check_enter(input, 1);
-			z = reset_value(input, z);
+			z.reset_value(input);
 			return input;
 		}
 		else
-			input.putback(a); //
+			input.putback(a);
 
 		input >> number2;
 		check_fail(input);
@@ -221,7 +226,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 		if (a != 'i')
 		{
 			input.setstate(ios::failbit);
-			z = reset_value(input, z);
+			z.reset_value(input);
 			return input;
 		}
 		else
@@ -236,7 +241,7 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 			check_fail(input);
 			check_char(input, a, ')');
 			check_enter(input, 1);
-			z = reset_value(input, z);
+			z.reset_value(input);
 			return input;
 		}
 	}
@@ -245,34 +250,33 @@ istream &operator>>(istream &input, Complex &z) // extended notation
 	check_fail(input);
 	check_char(input, a, ')');
 	check_enter(input, 1);
-	z = reset_value(input, z);
+	z.reset_value(input);
 	return input;
 }
 
-Complex reset_value(istream &input, Complex &z)
+void Complex::reset_value(istream &input)
 {
 	if (input.fail())
 	{
-		z.Re = 0;
-		z.Im = 0;
+		Re = 0;
+		Im = 0;
 	}
-	return z;
 }
 
 ostream &operator<<(ostream &os, const Complex &z)
 {
 	os << setprecision(3) << fixed; // decimal places 0.000
-	if (z.Re == 0 && z.Im == 0)
+	if (z.Re == 0 && z.Im == 0)		// (0)
 	{
 		os << "(0)";
 		return os;
 	}
-	if (z.Re != 0 && z.Im == 0)
+	if (z.Re != 0 && z.Im == 0) // (14)...
 	{
 		os << "(" << z.Re << ")";
 		return os;
 	}
-	if (z.Re == 0 && z.Im != 0)
+	if (z.Re == 0 && z.Im != 0) // (12i)...
 	{
 		if (z.Im != 1 && z.Im != -1)
 			os << "(" << z.Im << "i)";
@@ -282,7 +286,7 @@ ostream &operator<<(ostream &os, const Complex &z)
 			os << "(-i)";
 		return os;
 	}
-	if (z.Re != 0 && z.Im > 0)
+	if (z.Re != 0 && z.Im > 0) // (12+12i)...
 	{
 		if (z.Im != 1)
 			os << "(" << z.Re << "+" << z.Im << "i)";
@@ -290,7 +294,7 @@ ostream &operator<<(ostream &os, const Complex &z)
 			os << "(" << z.Re << "+i)";
 		return os;
 	}
-	if (z.Re != 0 && z.Im < 0)
+	if (z.Re != 0 && z.Im < 0) // (12-12i)...
 	{
 		if (z.Im != -1)
 			os << "(" << z.Re << z.Im << "i)";
@@ -325,13 +329,13 @@ void clean_cin()
 	cin.ignore(10000, '\n');
 }
 
-Complex complex_conjugate(Complex &z)
+Complex Complex::complex_conjugate()
 {
-	z.Im = z.Im * (-1);
-	return z;
+	Im = Im * (-1);
+	return *this;
 }
 
-float square_of_complex_abs(const Complex &z)
+double square_of_complex_abs(const Complex &z)
 {
 	return (z.Re * z.Re) + (z.Im * z.Im);
 }

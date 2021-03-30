@@ -25,7 +25,7 @@ ostream &operator<<(ostream &os, const Equation &eq)
 istream &read_first_complex(istream &input, Complex &z)
 {
     char a, i;
-    float number, number2;
+    double number, number2;
 
     input >> a; // read first bracket
     check_fail(input);
@@ -166,30 +166,38 @@ istream &operator>>(istream &input, Equation &eq)
     return input;
 }
 
-Complex solve_equation(Equation &eq)
+bool operator==(const Equation &eq1, const Equation &eq2)
+{
+    if (eq1.first == eq2.first && eq1.second == eq2.second && eq1.op == eq2.op)
+        return true;
+    else
+        return false;
+}
+
+Complex Equation::solve_equation()
 {
     Complex result;
 
-    switch (eq.op)
+    switch (op)
     {
     case '+':
     {
-        result = eq.first + eq.second;
+        result = first + second;
         break;
     }
     case '-':
     {
-        result = eq.first - eq.second;
+        result = first - second;
         break;
     }
     case '*':
     {
-        result = eq.first * eq.second;
+        result = first * second;
         break;
     }
     case '/':
     {
-        result = eq.first / eq.second;
+        result = first / second;
         break;
     }
     default:

@@ -97,15 +97,16 @@ void make_exam(Equation *testbase, int lines)
         cout << "?:nr." << i + 1 << "  Podaj wynik operacji  " << testbase[i] << endl;
 
         answer = read_complex(answer);
-        result = solve_equation(testbase[i]);
+        result = testbase[i].solve_equation();
 
         if (result == answer)
             cout << "Poprawna odpowiedz" << endl;
-        else if (result != answer)
+        else
         {
             cout << "Bledna odpowiedz | Prawidlowym wynikiem jest :" << result << endl;
             wrong++;
         }
     }
-    end_exam(wrong, lines);
+    statistics test(wrong, lines);
+    test.end_exam();
 }

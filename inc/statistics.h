@@ -3,6 +3,21 @@
 
 #include "complex_equation.h"
 
-void end_exam(int wrong_answers, int questions);
+/*
+ * Object of statistics handles values from the exam
+ * to sum up the score and tell the user what is his result
+ */
+
+class statistics
+{
+private:
+    int wrong_answers;
+    int all_questions;
+
+public:
+    statistics();
+    statistics(int a, int b);
+    float end_exam();
+};
 
 #endif //STATISTICS_H
