@@ -50,14 +50,14 @@ Jeżeli testy przebiegną pomyślnie program powinien zwrócić nastepujący kom
 
 ```js
 [----------] Global test environment tear-down
-[==========] 27 tests from 13 test suites ran. (x ms total)
-[  PASSED  ] 27 tests.
+[==========] 34 tests from 16 test suites ran. (x ms total)
+[  PASSED  ] 34 tests.
 ```
 
 Powyższy ciąg komend można wywołać jednorazowo wklejając poniższą komendę do terminala
 
 ```bash
-			cd build && cmake .. && make && cd tst/./complex_tst && cd .. && ./complex latwe
+			cd build && cmake .. && make && cd tst && ./complex_tst && cd .. && ./complex latwe
 ```
 
 W razie problemów proszę o kontakt <259370@student.pwr.edu.pl>
@@ -86,6 +86,7 @@ Założyłem dodatkowo,że warunkiem poprawnego wczytania liczby zespolonej jest
 &nbsp;&nbsp; ├── [test2.cpp](tst/test2.cpp) - plik zawierający testy **EQUALITY | COMPLEX CONJUGATE | SQUARE OF COMPLEX ABS**\
 &nbsp;&nbsp; ├── [test3.cpp](tst/test3.cpp) - plik zawierający testy **STATISTICS | EQUATION SOLVER**\
 &nbsp;&nbsp; ├── [test4.cpp](tst/test4.cpp) - plik zawierający testy **READ/SHOW COMPLEX | READ/SHOW EQUATION**\
+&nbsp;&nbsp; ├── [test5.cpp](tst/test5.cpp) - plik zawierający testy **MODIFICATIONS**\
 &nbsp;&nbsp; └── [main.cpp](tst/main.cpp) - plik main dla programu complex_tst\
 &nbsp;&nbsp; [lib](lib/) - zawiera biblioteke googletest\
 &nbsp;&nbsp; └── [googletest](lib/googletest) - folder z biblioteką googletest\
