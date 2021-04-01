@@ -13,6 +13,10 @@ public:
 	Complex();
 	Complex(double a, double b);
 
+	Complex operator+=(const Complex &a); // overloaded += operator
+	Complex operator/=(const Complex &a); // overloaded /= operator
+	void arg();
+
 	Complex operator+(const Complex &a); // overloaded + operator
 	Complex operator-(const Complex &a); // overloaded - operator
 	Complex operator*(const Complex &a); // overloaded * operator

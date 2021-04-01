@@ -14,6 +14,31 @@ Complex::Complex(double a, double b)
 	Im = b;
 }
 
+Complex Complex::operator+=(const Complex &a)
+{
+	this->Re = Re + a.Re;
+	this->Im = Im + a.Im;
+	return *this;
+}
+
+Complex Complex::operator/=(const Complex &a)
+{
+	Complex result, z;
+	double k;
+	if (a.Re == 0 && a.Im == 0)
+	{
+		cerr << "Division by 0 exception" << endl;
+		return *this;
+	}
+	z.Im = a.Im; // 'a' is const need 'z' to perform a conjugate
+	z.Re = a.Re;
+	z.complex_conjugate();
+	k = square_of_complex_abs(a);
+	result.Re = (this->Re * z.Re + this->Im * z.Im * (-1)) / k;
+	result.Im = (this->Re * z.Im + z.Re * this->Im) / k;
+	return result;
+}
+
 Complex Complex::operator+(const Complex &a)
 {
 	Complex result;
@@ -338,4 +363,25 @@ Complex Complex::complex_conjugate()
 double square_of_complex_abs(const Complex &z)
 {
 	return (z.Re * z.Re) + (z.Im * z.Im);
+}
+
+void Complex::arg()
+{
+	// atan(1) equals PI/4 so atan(1)*4 equals PI
+	double angle;
+
+	if (this->Re > 0)
+		angle = atan2(Im, Re);
+	if (this->Re < 0)
+		angle = atan2(Im, Re) + atan(1) * 4;
+
+	if (this->Im > 0 && this->Re == 0)
+		angle = atan(1) * 2;
+	if (this->Im < 0 && this->Re == 0)
+		angle = -atan(1) * 2;
+
+	if (this->Im == 0 && this->Re == 0)
+		cerr << "Arg of " << *this << " is undefined" << endl;
+	else
+		cout << "Arg of " << *this << " is:" << angle << endl;
 }
